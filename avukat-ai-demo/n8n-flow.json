@@ -1,48 +1,132 @@
 {
-  "name": "Law Firm AI Demo Flow",
+  "name": "Call Center Intake Demo",
   "nodes": [
     {
-      "name": "Incoming Call Webhook",
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "call-center-intake",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "1",
+      "name": "Webhook",
       "type": "n8n-nodes-base.webhook",
-      "purpose": "Receives voice call event"
+      "typeVersion": 2,
+      "position": [260, 300],
+      "webhookId": "call-center-intake-demo"
     },
     {
-      "name": "Transcribe Audio",
-      "type": "custom.openai.stt",
-      "purpose": "Converts speech to text"
+      "parameters": {
+        "keepOnlySet": true,
+        "values": {
+          "string": [
+            {
+              "name": "full_name",
+              "value": "={{$json.body.full_name || $json.full_name || \"\"}}"
+            },
+            {
+              "name": "phone_number",
+              "value": "={{$json.body.phone_number || $json.phone_number || \"\"}}"
+            },
+            {
+              "name": "city",
+              "value": "={{$json.body.city || $json.city || \"\"}}"
+            },
+            {
+              "name": "legal_topic",
+              "value": "={{$json.body.legal_topic || $json.legal_topic || \"general\"}}"
+            },
+            {
+              "name": "case_summary",
+              "value": "={{$json.body.case_summary || $json.case_summary || \"\"}}"
+            },
+            {
+              "name": "urgency_status",
+              "value": "={{$json.body.urgency_status || $json.urgency_status || \"normal\"}}"
+            },
+            {
+              "name": "appointment_requested",
+              "value": "={{$json.body.appointment_requested || $json.appointment_requested || \"false\"}}"
+            },
+            {
+              "name": "preferred_date",
+              "value": "={{$json.body.preferred_date || $json.preferred_date || \"\"}}"
+            },
+            {
+              "name": "preferred_time",
+              "value": "={{$json.body.preferred_time || $json.preferred_time || \"\"}}"
+            }
+          ]
+        }
+      },
+      "id": "2",
+      "name": "Normalize Input",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [520, 300]
     },
     {
-      "name": "LLM Intake Agent",
-      "type": "custom.openai.llm",
-      "purpose": "Handles caller conversation and data extraction"
+      "parameters": {
+        "jsCode": "const item = $input.item.json;\nconst summary = `Yeni cagri leadi alindi. Ad: ${item.full_name || '-'}, Telefon: ${item.phone_number || '-'}, Sehir: ${item.city || '-'}, Movzu: ${item.legal_topic || '-'}, Qisa melumat: ${item.case_summary || '-'}, Tecili: ${item.urgency_status || '-'}, Rendezvu isteyi: ${item.appointment_requested || '-'}, Uygun tarix: ${item.preferred_date || '-'}, Uygun saat: ${item.preferred_time || '-'}`;\nreturn [{ json: { ...item, summary } }];"
+      },
+      "id": "3",
+      "name": "Build Summary",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [780, 300]
     },
     {
-      "name": "Check Urgency",
-      "type": "n8n-nodes-base.if",
-      "purpose": "Routes urgent vs normal cases"
-    },
-    {
-      "name": "Save to Google Sheets",
-      "type": "n8n-nodes-base.googleSheets",
-      "purpose": "Stores lead data"
-    },
-    {
-      "name": "Send WhatsApp Message",
-      "type": "custom.twilio.whatsapp",
-      "purpose": "Sends summary to caller"
-    },
-    {
-      "name": "Notify Lawyer",
-      "type": "n8n-nodes-base.httpRequest",
-      "purpose": "Sends lead to CRM or internal endpoint"
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ { success: true, message: 'Call center lead received', data: $json } }}"
+      },
+      "id": "4",
+      "name": "Respond to Webhook",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [1040, 300]
     }
   ],
-  "connections": [
-    ["Incoming Call Webhook", "Transcribe Audio"],
-    ["Transcribe Audio", "LLM Intake Agent"],
-    ["LLM Intake Agent", "Check Urgency"],
-    ["Check Urgency", "Save to Google Sheets"],
-    ["Save to Google Sheets", "Send WhatsApp Message"],
-    ["Send WhatsApp Message", "Notify Lawyer"]
-  ]
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Normalize Input",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Normalize Input": {
+      "main": [
+        [
+          {
+            "node": "Build Summary",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Build Summary": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {},
+  "versionId": "1",
+  "meta": {
+    "templateCredsSetupCompleted": false
+  },
+  "tags": []
 }
