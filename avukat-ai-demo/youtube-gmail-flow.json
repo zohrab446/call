@@ -1,0 +1,144 @@
+{
+  "name": "Daily History Video Idea to Gmail",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "cronExpression",
+              "expression": "0 9 * * *"
+            }
+          ]
+        }
+      },
+      "id": "1",
+      "name": "Daily Trigger",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [260, 300]
+    },
+    {
+      "parameters": {
+        "keepOnlySet": true,
+        "values": {
+          "string": [
+            {
+              "name": "niche",
+              "value": "Tarih"
+            },
+            {
+              "name": "language",
+              "value": "Turkce"
+            },
+            {
+              "name": "recipient",
+              "value": "zohrabkhidirov5@gmail.com"
+            },
+            {
+              "name": "prompt",
+              "value": "Bugun icin Turkce, tarih konulu YouTube videosu hazirla. Cikti formatin su olsun: Baslik, Video fikri, Hook, 60 saniyelik qisa script, Thumbnail yazisi, Description. Tek bir guclu fikir ver."
+            }
+          ]
+        }
+      },
+      "id": "2",
+      "name": "Set Input",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [520, 300]
+    },
+    {
+      "parameters": {
+        "resource": "chat",
+        "operation": "create",
+        "model": "gpt-4o-mini",
+        "messages": {
+          "values": [
+            {
+              "role": "system",
+              "content": "Sen YouTube icerik stratejisti kimi davran. Qisa, keyfiyyetli, klik alacaq amma spam olmayan tarix movzulu Turkce video ideyalari hazirla."
+            },
+            {
+              "role": "user",
+              "content": "={{$json.prompt}}"
+            }
+          ]
+        },
+        "simplify": true
+      },
+      "id": "3",
+      "name": "Generate Idea",
+      "type": "n8n-nodes-base.openAi",
+      "typeVersion": 1.8,
+      "position": [780, 300],
+      "credentials": {
+        "openAiApi": {
+          "id": "YOUR_OPENAI_CREDENTIAL_ID",
+          "name": "OpenAI account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "={{$('Set Input').item.json.recipient}}",
+        "subject": "Gunluk YouTube Tarih Video Fikri",
+        "message": "={{$json.message || $json.text || JSON.stringify($json)}}",
+        "options": {}
+      },
+      "id": "4",
+      "name": "Send Gmail",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [1040, 300],
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "YOUR_GMAIL_CREDENTIAL_ID",
+          "name": "Gmail account"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Daily Trigger": {
+      "main": [
+        [
+          {
+            "node": "Set Input",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set Input": {
+      "main": [
+        [
+          {
+            "node": "Generate Idea",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Generate Idea": {
+      "main": [
+        [
+          {
+            "node": "Send Gmail",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {},
+  "versionId": "1",
+  "meta": {
+    "templateCredsSetupCompleted": false
+  },
+  "tags": []
+}
