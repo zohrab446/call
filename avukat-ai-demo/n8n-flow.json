@@ -1,0 +1,48 @@
+{
+  "name": "Law Firm AI Demo Flow",
+  "nodes": [
+    {
+      "name": "Incoming Call Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "purpose": "Receives voice call event"
+    },
+    {
+      "name": "Transcribe Audio",
+      "type": "custom.openai.stt",
+      "purpose": "Converts speech to text"
+    },
+    {
+      "name": "LLM Intake Agent",
+      "type": "custom.openai.llm",
+      "purpose": "Handles caller conversation and data extraction"
+    },
+    {
+      "name": "Check Urgency",
+      "type": "n8n-nodes-base.if",
+      "purpose": "Routes urgent vs normal cases"
+    },
+    {
+      "name": "Save to Google Sheets",
+      "type": "n8n-nodes-base.googleSheets",
+      "purpose": "Stores lead data"
+    },
+    {
+      "name": "Send WhatsApp Message",
+      "type": "custom.twilio.whatsapp",
+      "purpose": "Sends summary to caller"
+    },
+    {
+      "name": "Notify Lawyer",
+      "type": "n8n-nodes-base.httpRequest",
+      "purpose": "Sends lead to CRM or internal endpoint"
+    }
+  ],
+  "connections": [
+    ["Incoming Call Webhook", "Transcribe Audio"],
+    ["Transcribe Audio", "LLM Intake Agent"],
+    ["LLM Intake Agent", "Check Urgency"],
+    ["Check Urgency", "Save to Google Sheets"],
+    ["Save to Google Sheets", "Send WhatsApp Message"],
+    ["Send WhatsApp Message", "Notify Lawyer"]
+  ]
+}

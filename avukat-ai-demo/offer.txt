@@ -1,0 +1,20 @@
+Avukat Ofisi AI Cagri Karsilama Asistani - Demo Teklif Metni
+
+Bu cozum, hukuk ofislerine gelen cagrilari 7/24 karsilayan, arayan kisinin temel bilgilerini toplayan, genel on bilgilendirme yapan, randevu surecini baslatan ve sureci WhatsApp uzerinden devam ettirebilen yapay zeka destekli bir dijital asistandir.
+
+Saglanan faydalar:
+- kacirilan cagrilarin azaltilmasi
+- daha duzenli lead toplama
+- on gorusme surecinin hizlanmasi
+- personel yukunun azaltilmasi
+- WhatsApp ile otomatik takip
+
+Demo kapsami:
+- Turkce cagri karsilama
+- bilgi toplama
+- guvenli on bilgilendirme
+- randevu olusturma akisi
+- WhatsApp mesaj takibi
+- tablo/CRM kaydi
+
+Not: Sistem kesin hukuki tavsiye vermez; yalnizca genel bilgi ve yonlendirme saglar.

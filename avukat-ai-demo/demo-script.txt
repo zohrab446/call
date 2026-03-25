@@ -1,0 +1,19 @@
+DEMO KONUSMA AKISI
+
+1. Karsilama
+Merhaba, hukuk ofisine ulastiniz. Ben dijital asistan. Size yardimci olabilmem icin adinizi ve hangi konu hakkinda aradiginizi ogrenebilir miyim?
+
+2. Bilgi Toplama
+Tesekkur ederim. Size daha iyi yonlendirme yapabilmem icin ulasabilecegim telefon numaranizi ve bulundugunuz sehri paylasir misiniz?
+
+3. On Bilgilendirme
+Bu konuda genel bilgi paylasabilirim, ancak net hukuki degerlendirme avukat tarafindan yapilmalidir.
+
+4. Randevu Teklifi
+Dilerseniz sizi on gorusme icin uygun bir randevuya yonlendirebilirim. Sizin icin uygun gun ve saat nedir?
+
+5. WhatsApp Devami
+Isterseniz gorusme ozetinizi ve sonraki adimlari bu numara uzerinden WhatsApp ile de paylasabiliriz.
+
+6. Kapanis
+Paylastiginiz bilgiler kaydedildi. Uygunluk durumuna gore en kisa surede sizinle iletisime gecilecektir.

@@ -1,0 +1,225 @@
+{
+  "project": {
+    "name": "Avukat Ofisi AI Cagri Karsilama Asistani",
+    "country": "Turkey",
+    "language": "tr",
+    "channel": [
+      "voice",
+      "whatsapp"
+    ],
+    "mode": "demo",
+    "goal": [
+      "call_answering",
+      "information_capture",
+      "basic_information",
+      "appointment_booking",
+      "whatsapp_followup"
+    ],
+    "description": "Turkiye'de faaliyet gosteren bir avukat ofisi icin gelen cagrilari karsilayan, temel bilgi toplayan, genel on bilgilendirme yapan, randevu olusturan ve WhatsApp uzerinden takip saglayan AI asistan demosu."
+  },
+  "business": {
+    "target_sector": "law_firm",
+    "practice_mode": "general_intake",
+    "usage_type": "demo",
+    "customer_type": "lawyer_or_law_office"
+  },
+  "features": {
+    "call_answering": true,
+    "collect_caller_info": true,
+    "classify_legal_topic": true,
+    "provide_general_information": true,
+    "appointment_booking": true,
+    "whatsapp_followup": true,
+    "urgent_case_flagging": true,
+    "call_summary_generation": true
+  },
+  "channels": {
+    "voice": {
+      "provider": "Twilio",
+      "enabled": true
+    },
+    "whatsapp": {
+      "provider": "Twilio WhatsApp API",
+      "enabled": true
+    }
+  },
+  "ai_stack": {
+    "speech_to_text": {
+      "provider": "OpenAI",
+      "model": "gpt-4o-mini-transcribe"
+    },
+    "llm": {
+      "provider": "OpenAI",
+      "model": "gpt-5.4"
+    },
+    "text_to_speech": {
+      "provider": "OpenAI_or_ElevenLabs",
+      "model": "tts-1_or_equivalent"
+    }
+  },
+  "automation": {
+    "orchestrator": "n8n",
+    "database": "Google Sheets",
+    "crm": "optional",
+    "webhook_support": true
+  },
+  "workflow": [
+    {
+      "step": 1,
+      "name": "answer_call",
+      "description": "Sistem gelen cagrayi otomatik cevaplar."
+    },
+    {
+      "step": 2,
+      "name": "greet_caller",
+      "description": "Arayan kisi profesyonel bir sekilde karsilanir."
+    },
+    {
+      "step": 3,
+      "name": "detect_need",
+      "description": "Arama nedeni ve hukuki konu sorulur."
+    },
+    {
+      "step": 4,
+      "name": "collect_identity",
+      "description": "Ad soyad ve telefon bilgisi alinir."
+    },
+    {
+      "step": 5,
+      "name": "collect_case_summary",
+      "description": "Kisa olay ozeti ve sehir bilgisi toplanir."
+    },
+    {
+      "step": 6,
+      "name": "check_urgency",
+      "description": "Acil durum olup olmadigi belirlenir."
+    },
+    {
+      "step": 7,
+      "name": "provide_safe_preinfo",
+      "description": "Kesin hukuki tavsiye vermeden genel bilgi sunulur."
+    },
+    {
+      "step": 8,
+      "name": "offer_appointment",
+      "description": "Kullanici isterse randevu akisi baslatilir."
+    },
+    {
+      "step": 9,
+      "name": "capture_availability",
+      "description": "Uygun gun ve saat bilgisi alinir."
+    },
+    {
+      "step": 10,
+      "name": "save_record",
+      "description": "Tum bilgiler tabloya veya CRM'e kaydedilir."
+    },
+    {
+      "step": 11,
+      "name": "send_whatsapp_summary",
+      "description": "Gorusme ozeti veya teyit mesaji WhatsApp'tan gonderilir."
+    },
+    {
+      "step": 12,
+      "name": "notify_lawyer",
+      "description": "Avukata lead bilgisi iletilir."
+    }
+  ],
+  "data_fields": [
+    "full_name",
+    "phone_number",
+    "city",
+    "legal_topic",
+    "case_summary",
+    "urgency_status",
+    "appointment_requested",
+    "preferred_date",
+    "preferred_time",
+    "whatsapp_consent",
+    "notes"
+  ],
+  "legal_topics": [
+    "bosanma_ve_aile_hukuku",
+    "ceza_hukuku",
+    "icra_ve_alacak",
+    "is_hukuku",
+    "sirketler_hukuku",
+    "genel_danismanlik"
+  ],
+  "conversation_rules": {
+    "language": "Turkish",
+    "tone": "professional_clear_calm",
+    "ask_one_question_at_a_time": true,
+    "do_not_give_definitive_legal_advice": true,
+    "do_not_guarantee_case_outcomes": true,
+    "redirect_urgent_cases": true,
+    "offer_whatsapp_followup": true
+  },
+  "system_prompt": "Sen Turkiye'de faaliyet gosteren bir hukuk ofisinin dijital cagri karsilama asistanisin. Gorevin arayan kisiyi profesyonel sekilde karsilamak, ad soyad, telefon, sehir, konu, kisa aciklama, aciliyet ve uygun gorusme zamanini toplamak, yalnizca genel on bilgilendirme yapmak, kesin hukuki tavsiye vermemek, kullanici isterse randevu olusturmak ve gorusme sonunda kisa bir ozet uretmektir. Her zaman Turkce konus. Kisa, net ve guven veren cumleler kullan. Bir anda cok fazla soru sorma. Dava sonucu, garanti veya baglayici hukuki gorus sunma.",
+  "voice_scripts": {
+    "welcome": "Merhaba, hukuk ofisine ulasdiniz. Ben dijital asistan. Size daha hizli yardimci olabilmem icin adinizi ve hangi konu hakkinda aradiginizi ogrenebilir miyim?",
+    "info_notice": "Bu konuda genel bilgi paylasabilirim, ancak net hukuki degerlendirme avukat tarafindan yapilmalidir.",
+    "appointment_offer": "Dilerseniz sizi on gorusme icin uygun bir randevuya yonlendirebilirim.",
+    "urgent_response": "Gecmis olsun. Durumunuzu oncelikli olarak iletebilmem icin adinizi, telefon numaranizi ve bulundugunuz ili paylasir misiniz?",
+    "closing": "Paylastiginiz bilgiler kaydedildi. Uygunluk durumuna gore en kisa surede sizinle iletisime gecilecektir."
+  },
+  "whatsapp_templates": {
+    "thank_you": "Merhaba, hukuk ofisimizle yaptiginiz gorusme kaydiniz alinmistir. Talebiniz ilgili ekibe iletilmistir.",
+    "appointment_received": "Merhaba, on gorusme talebiniz alinmistir. Uygunluk kontrolu sonrasi size bilgi verilecektir.",
+    "document_prep": "Ilk gorusme oncesinde varsa ilgili evraklari ve kisa olay ozetinizi hazir bulundurmaniz sureci hizlandiracaktir."
+  },
+  "storage": {
+    "google_sheets_columns": [
+      "record_id",
+      "date",
+      "time",
+      "full_name",
+      "phone_number",
+      "city",
+      "legal_topic",
+      "case_summary",
+      "urgent",
+      "appointment_requested",
+      "preferred_date",
+      "preferred_time",
+      "whatsapp_consent",
+      "status",
+      "notes"
+    ]
+  },
+  "handoff_logic": {
+    "urgent_keywords": [
+      "gozalti",
+      "tutuklama",
+      "acil",
+      "mahkeme bugun",
+      "icra",
+      "siddet",
+      "uzaklastirma"
+    ],
+    "if_urgent": [
+      "mark_as_priority",
+      "collect_contact_fast",
+      "notify_lawyer_immediately"
+    ],
+    "if_not_urgent": [
+      "continue_standard_flow",
+      "offer_appointment",
+      "send_whatsapp_summary"
+    ]
+  },
+  "integrations": {
+    "twilio_voice": true,
+    "twilio_whatsapp": true,
+    "openai_api": true,
+    "n8n_webhook": true,
+    "google_sheets_api": true
+  },
+  "success_metrics": {
+    "calls_answered_rate": ">= 95%",
+    "lead_capture_rate": ">= 80%",
+    "appointment_conversion_rate": "track",
+    "average_call_duration": "track",
+    "whatsapp_followup_sent": true
+  }
+}
