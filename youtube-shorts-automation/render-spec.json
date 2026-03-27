@@ -1,0 +1,28 @@
+{
+  "video": {
+    "width": 1080,
+    "height": 1920,
+    "fps": 30,
+    "durationSeconds": 60,
+    "format": "mp4"
+  },
+  "style": {
+    "subtitleMode": "burned_in",
+    "captionPosition": "center_lower",
+    "fontStyle": "bold_clean",
+    "theme": "dark_modern",
+    "textAnimation": "simple_pop",
+    "transition": "fast_fade"
+  },
+  "audio": {
+    "voiceover": true,
+    "backgroundMusic": true,
+    "musicLevel": 0.18,
+    "voiceLevel": 1.0
+  },
+  "assets": {
+    "source": "stock",
+    "provider": "pexels_or_pixabay",
+    "clipsPerVideo": 6
+  }
+}

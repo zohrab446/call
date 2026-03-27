@@ -1,0 +1,19 @@
+{
+  "clientName": "Default Client",
+  "channelName": "Client Shorts Channel",
+  "niche": "history",
+  "language": "tr",
+  "format": "youtube_shorts",
+  "style": "stock_plus_text",
+  "videosPerDay": 1,
+  "durationSeconds": 60,
+  "tone": "engaging_clear_fast",
+  "cta": "Daha fazlası için takip et",
+  "targetAudience": "general",
+  "avoid": ["copyrighted footage", "medical claims", "hate speech"],
+  "youtube": {
+    "privacyStatus": "public",
+    "categoryId": "27",
+    "madeForKids": false
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "topicPrompt": "Create one strong YouTube Shorts topic idea for a {language} {niche} channel. Make it curiosity-driven and suitable for a 45-60 second video.",
+  "scriptPrompt": "Write a {language} YouTube Shorts script for the topic. Include: hook, body, payoff, CTA. Keep it concise and voiceover-ready for about 60 seconds.",
+  "metadataPrompt": "Create a title, description, and hashtags for the Shorts video in {language}. Keep it clickable but not spammy.",
+  "shotListPrompt": "Create a stock-video shot list for this Shorts script. Return 6 to 8 short visual beats that match each script section.",
+  "thumbnailPrompt": "Create short thumbnail text for the video in {language}. Maximum 5 words."
+}
